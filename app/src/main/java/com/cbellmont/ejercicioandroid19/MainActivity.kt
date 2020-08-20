@@ -1,11 +1,15 @@
-package com.cbellmont.ejercicioandroid11
+package com.cbellmont.ejercicioandroid19
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+interface MainActivityInterface {
+    fun onPersonajeCliked(personaje: Personaje)
+}
+
+class MainActivity : AppCompatActivity(), MainActivityInterface{
 
     private lateinit var adapter : PersonajesAdapter
     private val listaPersonajes = loadData()
@@ -17,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createRecyclerView() {
-        adapter = PersonajesAdapter(listaPersonajes)
+        adapter = PersonajesAdapter(this, listaPersonajes)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -33,5 +37,10 @@ class MainActivity : AppCompatActivity() {
         val personaje6 = Personaje("Smagu", "Dragon", R.mipmap.smagu, false)
 
         return mutableListOf(personaje1,personaje2,personaje3,personaje4,personaje5,personaje6).apply { shuffle() }
+    }
+
+    override fun onPersonajeCliked(personaje: Personaje) {
+        startActivity(SecondActivity.getIntent(this, personaje))
+
     }
 }
