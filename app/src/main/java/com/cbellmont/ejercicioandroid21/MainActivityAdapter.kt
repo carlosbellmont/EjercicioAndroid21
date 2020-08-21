@@ -1,15 +1,19 @@
-package com.cbellmont.ejercicioandroid19
+package com.cbellmont.ejercicioandroid21
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-interface MainActivityInterface {
+interface MainActivityAdapterInterface {
     fun onPersonajeCliked(personaje: Personaje)
 }
+interface MainActivityFragmentInterface {
+    fun onImageClicked()
+}
 
-class MainActivity : AppCompatActivity(), MainActivityInterface{
+class MainActivityAdapter : AppCompatActivity(), MainActivityAdapterInterface, MainActivityFragmentInterface{
 
     private lateinit var adapter : PersonajesAdapter
     private val listaPersonajes = loadData()
@@ -22,7 +26,6 @@ class MainActivity : AppCompatActivity(), MainActivityInterface{
 
     private fun createRecyclerView() {
         adapter = PersonajesAdapter(this, listaPersonajes)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
@@ -40,6 +43,20 @@ class MainActivity : AppCompatActivity(), MainActivityInterface{
     }
 
     override fun onPersonajeCliked(personaje: Personaje) {
-        startActivity(SecondActivity.getIntent(this, personaje))
+        framelayout.visibility = View.VISIBLE
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.framelayout, FragmentPersonaje().apply {
+                setInterfaz(this@MainActivityAdapter)
+                arguments = Bundle().apply {
+                    putSerializable(FragmentPersonaje.CLAVE_1, personaje)
+                }
+            })
+            commit()
+        }
     }
+
+    override fun onImageClicked() {
+        framelayout.visibility = View.GONE
+    }
+
 }

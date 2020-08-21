@@ -1,4 +1,4 @@
-package com.cbellmont.ejercicioandroid19
+package com.cbellmont.ejercicioandroid21
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class PersonajesAdapter(var inter : MainActivityInterface,  var listaPersonajes : List<Personaje>) : RecyclerView.Adapter<PersonajesAdapter.PersonajesViewHolder>()  {
+class PersonajesAdapter(var inter : MainActivityAdapterInterface, var listaPersonajes : List<Personaje>) : RecyclerView.Adapter<PersonajesAdapter.PersonajesViewHolder>()  {
 
     class PersonajesViewHolder(val root: View, val  imageView: ImageView, val textViewNombre: TextView, val textViewRaza : TextView) : RecyclerView.ViewHolder(root)
 
