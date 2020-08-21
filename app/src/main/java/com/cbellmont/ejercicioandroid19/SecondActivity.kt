@@ -16,12 +16,16 @@ class SecondActivity: AppCompatActivity() {
         }
     }
 
+    fun getPersonaje() : Personaje{
+        val personaje = intent.getSerializableExtra(CLAVE_1)
+        return personaje as Personaje
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        val personaje = intent.getSerializableExtra(CLAVE_1)
-        personaje as Personaje
+        val personaje = getPersonaje()
 
         iwFoto.setImageResource(personaje.image)
         tvNombre.text = personaje.nombre

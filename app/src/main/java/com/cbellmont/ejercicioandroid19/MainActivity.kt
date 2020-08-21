@@ -41,6 +41,5 @@ class MainActivity : AppCompatActivity(), MainActivityInterface{
 
     override fun onPersonajeCliked(personaje: Personaje) {
         startActivity(SecondActivity.getIntent(this, personaje))
-
     }
 }
